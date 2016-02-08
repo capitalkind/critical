@@ -65,7 +65,7 @@
   <div class="container" id="posts-div" ng-show="loggedIn">
     <div class="row" ng-repeat="post in posts | filter:q" id="post">
       <div id="title-div">
-        <span class="underline">Posted by <strong>{{ post.username }}</strong> on {{ post.createdAt | date:'medium' }}</span> &nbsp <i class="fa fa-times" id="delete-button" ng-click="deletePost(post._id)"></i>
+        <span class="underline">Posted by <strong>{{ post.username }}</strong> on {{ post.createdAt | date:'medium' }}</span> <!-- &nbsp <i class="fa fa-times" id="delete-button" ng-click="deletePost(post._id)"></i> -->
       </div>
       <div class="six columns" id="image-div">
         </p>

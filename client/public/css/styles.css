@@ -50,9 +50,6 @@ section{
   margin-top: 2em;
 }
 
-.welcome{
-  /*display: inline-block;*/
-}
 
 #content-div{
   text-align: left;
@@ -127,6 +124,9 @@ section{
   padding-top: .5em;
 }
 
+#top-div h5{
+  vertical-align: bottom !important;
+}
 
 #posts-div{
   margin-top: 16.5em;
