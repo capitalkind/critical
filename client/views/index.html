@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html ng-app="critical">
+<head>
+  <title>critical</title>
+  <link rel="stylesheet" href="/public/css/styles.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Carter+One' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-cookies.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.js"></script>
+  <script type="text/javascript" src="/public/js/app.js"></script>
+  <script type="text/javascript" src="/public/js/controllers/app_controller.js"></script>
+  <script type="text/javascript" src="/public/js/services/postsApi.js"></script>
+  <script type="text/javascript" src="/public/js/services/usersApi.js"></script>
+</head>
+<body>
+
+ <!--  <nav class="navbar navbar-inverse" style="border-radius: 0px;">
+    <div class="conteiner-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+    </div>
+  </nav> -->
+
+
+  <section ng-controller="appController" >
+
+    <div class="logo">
+      <h3 id="logo">critical</h3>
+    </div>
+
+  <div id="show-div" class="show" ng-hide="loggedIn">
+    <div class="sign-up" ng-hide="loggedIn">
+      <h5>Sign Up</h5>
+        <form class="sign-up-form" ng-submit="createUser(user)">
+          <input type="text" ng-model="user.username" placeholder="...username">
+          <input type="password" ng-model="user.password" placeholder="...password">
+          <input type="submit" style="display: none;">
+        </form>
+    </div>
+
+    <div class="log-in" ng-hide="loggedIn">
+      <h5>Log In</h5>
+        <form class="log-in-form" ng-submit="logInUser(username, password)">
+          <input type="text" ng-model="username" placeholder="...username">
+          <input type="password" ng-model="password" placeholder="...password">
+          <input type="submit" style="display: none;">
+        </form>
+
+    </div>
+  </div>
+
+  <br>
+
+  <div id="top-div" ng-show="loggedIn">
+    <div class="welcome">
+      <h5 ng-show="loggedIn">Hello {{ currentUser }} &nbsp&nbsp&nbsp&nbsp&nbsp <input id="search-box" ng-show="loggedIn" type="text" ng-model="q.bodyText" value="" placeholder="search posts"> <button type="button" ng-click="logOutUser()" ng-show="loggedIn">LogOut</button></h5>
+      <!-- <button type="button" ng-click="logOutUser()" ng-show="loggedIn">Log Out</button> <input id="search-box" ng-show="loggedIn" type="text" ng-model="q.bodyText" value="" placeholder="search posts"> -->
+    </div>
+
+    <div class="container" id="input-bar" ng-show="loggedIn">
+      <form ng-submit="createPost(post)" id="new-post-form">
+        <input type="text" ng-model="post.title" value="" placeholder="title">
+        <input type="text" ng-model="post.bodyText" value="" placeholder="description">
+        <input type="text" ng-model="post.url" value="" placeholder="image url">
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="container" id="posts-div" ng-show="loggedIn">
+    <div class="row" ng-repeat="post in posts | filter:q" id="post">
+      <div id="title-div">
+        <span class="underline">Posted by <strong>{{ post.username }}</strong> on {{ post.createdAt | date:'medium' }}</span> &nbsp <i class="fa fa-times" id="delete-button" ng-click="deletePost(post._id)"></i>
+      </div>
+      <div class="six columns" id="image-div">
+        </p>
+        <img class="post-image" ng-src="{{ post.url }}" alt="">
+        <p>
+      </div>
+      <div class="six columns" id="content-div">
+        <h5>{{ post.title }}</h5>
+        <p>{{ post.bodyText }}</p>
+      </div>
+    </div>
+  </div>
+
+ <!-- <p>
+          Posted by <strong>{{ post.username }}</strong> on {{ post.createdAt | date:'medium' }}
+        </p> -->
+
+  <!-- <div id="comment-form-div">
+          <form ng-submit="createComment(post._id)" class="post-comment">
+            <input type="text" ng-model="post.comments.bodyText" name="bodyText" placeholder="comment">
+            <button type="submit">Submit</button>
+            <button type="button" ng-click="deletePost(post._id)" ng-show="hasToken">Remove Post</button>
+          </form>
+        </div>
+        <div ng-repeat="comment in posts.comments | filter:q" class="post">
+          <h3>{{ comment.username }}</h3>
+          <p>
+            {{ comment.bodyText }}
+          </p>
+        </div> -->
+
+ <!--  <div class="posts-container" ng-show="loggedIn">
+    <div>
+      <div ng-repeat="post in posts | filter:q" class="post">
+        <p>
+          Posted by <strong>{{ post.username }}</strong> on {{ post.createdAt | date:'medium' }}
+        </p>
+        <img class="post-image" ng-src="{{ post.url }}" alt="">
+        <p>
+          {{ post.bodyText }}
+        </p>
+        <div id="comment-form-div">
+          <form ng-submit="createComment(post._id)" class="post-comment"> -->
+            <!-- <input type="hidden" name="post-id" > -->
+           <!--  <input type="text" ng-model="post.comments.bodyText" name="bodyText" placeholder="comment">
+            <button type="submit">Submit</button>
+            <button type="button" ng-click="deletePost(post._id)" ng-show="hasToken">Remove Post</button>
+          </form>
+        </div>
+        <div ng-repeat="comment in post.comments | filter:q" class="post">
+          <h3>{{ comment.username }}</h3>
+          <p>
+            {{ comment.bodyText }}
+          </p>
+        </div> -->
+        <!-- <button type="button" ng-click="deletePost(post._id)">Remove Post</button> -->
+  <!--     </div>
+    </div>
+  </div> -->
+
+<!--ng-model="{{post._id}}" -->
+
+  </section>
+
+
+
+
+</body>
+</html>
