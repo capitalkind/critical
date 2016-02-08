@@ -2,7 +2,7 @@ var api = angular.module('postsApiFactory', []);
 
 api.factory('postsApi', ['$http', function( $http ){
 
-  var basePostsUrl = 'http://localhost:5000/api/posts/'
+  var basePostsUrl = '/api/posts/'
 
   var postsInterface = {};
 
