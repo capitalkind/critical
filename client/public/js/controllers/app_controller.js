@@ -79,17 +79,6 @@ control.controller('appController', ['$scope', '$http', '$cookies', 'usersApi', 
     })
   }
 
-  // $scope.createComment = function(id, commentBody){
-  //   $http({
-  //     url: '/api/posts/' + id + '/comments',
-  //     method: 'post',
-  //     data: {comments: commentBody},
-  //     success: function(data){
-  //       var comment = data.comments;
-  //     }
-  //   });
-  // }
-
   $scope.isToken = function(){
     var token = $cookies.get('token');
     if(token){
@@ -102,20 +91,9 @@ control.controller('appController', ['$scope', '$http', '$cookies', 'usersApi', 
     }
   }
 
-  // $scope.rightToken = function(username){
-  //   var user = $cookies.get('user');
-  //   var userToken = post.data.username;
-  //   if(user === userToken){
-  //     $scope.hasToken = true;
-  //   } else {
-  //     $scope.hasToken = false;
-  //   }
-  // }
-
   var readyToGo = function () {
    $scope.getAllPosts();
    $scope.isToken();
-   // $scope.rightToken();
   };
 
   readyToGo();
